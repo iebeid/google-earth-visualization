@@ -1,0 +1,62 @@
+<html>
+<head>
+<title>UI Test</title>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+  <style>
+  
+    label {
+      display: block;
+      margin: 30px 0 0 0;
+    }
+    select {
+      width: 300px;
+    }
+    .overflow {
+      height: 200px;
+    }
+  
+  </style>
+</head>
+<body>
+ 
+<h1>GE UI Test</h1>
+
+<p><label for="data_mode">Model mode:</label> <select id="data_mode" onchange="data_mode_changed();">
+<option value="MaleFemale">Male / Female Ratio</option>
+<option value="Population">Population Ratio</option>
+</select>
+</p>
+
+<p>Scale value:
+<div id="scale_slider"></div>
+</p>
+
+
+<script>
+
+
+$(function() {
+    $( "#scale_slider" ).slider({
+    change: function(event, ui) {
+        $.post("updateUI", { "scale_slider" : $("#scale_slider").slider("value") });
+    }
+
+    });
+    
+    $( "#data_mode" ).selectmenu({
+    change: function(event, ui) {
+        $.post("updateUI", { "data_mode" : ui.item.value });
+    }
+
+    });
+    
+    
+});
+
+</script>
+
+</body>
+</html>
+
